@@ -41,7 +41,7 @@ So far [mmd.js](mmd.js) has been tested in recent versions of Opera ( all flavou
 
 ## Why ?
 
-[mmd.js](mmd.js) is the result of some very intensive yak shaving. Let's be honest, it was just an excuse to procastinate and do something different.
+[mmd.js](mmd.js) is the result of some very intensive yak shaving. Let's be honest, it was just an excuse to procrastinate and do something different.
 
 
 That's all folks.
