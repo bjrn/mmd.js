@@ -22,10 +22,10 @@ function markdown(src) {
 		f = b[0];
 		R = {
 			'*': [(/\n\* /), '<ul><li>', '</li></ul>'],
-			'1': [(/\n[1-9]\d*\.? /), '<ol><li>', '</li></ol>'],
 			' ': [(/\n    /),'<pre><code>','</pre></code>','\n'],
 			'>': [(/\n> /),'<blockquote>','</blockquote>','\n']
 		}[f];
+		if (b.match(/\n[1-9]\d*\. /)) R = [(/\n[1-9]\d*\. /), '<ol><li>', '</li></ol>'];
 		h +=
 			R ? R[1] + ('\n' + b)
 				.split(R[0])
