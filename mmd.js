@@ -35,8 +35,7 @@ function markdown(src) {
 				.slice(1)
 				.map(R[3] ? html : inlineEscape)
 				.join(R[3] || '</li>\n<li>') + R[2]:
-			f == '#' ? '<h' + (f = b.indexOf(' ')) + '>' + inlineEscape(b.slice(f + 1)) + '</h' + f + '>':
-			f == '<' ? b:
+			f == '#' ? '<h' + Math.min(6, f = b.indexOf(' ')) + '>' + inlineEscape(b.slice(f + 1)) + '</h' + Math.min(6, f) + '>':
 			'<p>' + inlineEscape(b) + '</p>';
 	});
 	return h;
