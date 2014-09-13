@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -81,7 +83,7 @@ The input text is split into blocks separated by one or more blank lines. The ty
 
 ## Supported features
 
-* Headers # 
+* Headers #
 * Blockquotes >
 * Ordered lists 1
 * Unordered lists *
@@ -109,20 +111,19 @@ So far [mmd.js](mmd.js) has been tested in recent versions of Opera ( all flavou
 That's all folks.
 
 </noscript></article>
-<script src='mmd.min.js'></script>
+<script src='mmd.js'></script>
 <script>
 
-onload = function()
-{
-	var $ = function(id){ return document.getElementById(id); };
-    var src = $('md').textContent;
-    var then = Date.now();
-    var html = mmd(src);
-    var now = Date.now();
+    onload = function() {
+        var $ = function(id){ return document.getElementById(id); };
+        var src = $('md').textContent;
+        var then = Date.now();
+        var html = mmd(src);
+        var now = Date.now();
 
-    document.title += ' Just parsed '+ src.length +' md -> '+ html.length +'b html in '+ (now-then) +'ms';
-    $('parsed').innerHTML = html;
-}
+        document.title += ' Just parsed '+ src.length +' md -> '+ html.length +'b html in '+ (now-then) +'ms';
+        $('parsed').innerHTML = html;
+    }
 
 </script>
 </body>

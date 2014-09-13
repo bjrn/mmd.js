@@ -8,7 +8,7 @@ String.prototype.replaceAll = function(find, replace) {
 function html(input) {
 	return input.toString().replaceAll(['&', '<', '"'], ['&amp;', '&lt;', '&quot;']);
 };
-function markdown(src) {
+function mmd(src) {
 	var h = '',
 		i = 0;
 	function inlineEscape(s) {
