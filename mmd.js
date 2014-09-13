@@ -1,26 +1,32 @@
-String.prototype.replaceAll = function(find, replace) {
-	if (typeof find == 'string') return this.split(find).join(replace);
-	var t = this, i, j;
-	while (typeof(i = find.shift()) == 'string' && typeof(j = replace.shift()) == 'string') t = t.replaceAll(i || '', j || '');
-	return t;
-};
-
-function html(input) {
-	return input.toString().replaceAll(['&', '<', '"'], ['&amp;', '&lt;', '&quot;']);
-};
 function mmd(src) {
 	var h = '',
 		i = 0;
+
+	function replaceAll(txt, find, replace) {
+		var i, j;
+
+		if (typeof find === 'string') { return txt.split(find).join(replace); }
+		while (typeof(i = find.shift()) === 'string' && typeof(j = replace.shift()) === 'string') {
+			txt = replaceAll(txt, i || '', j || '');
+		}
+		return txt;
+	}
+
+	function html(input) {
+		return replaceAll(input.toString(), ['&', '<', '"'], ['&amp;', '&lt;', '&quot;']);
+	}
+
 	function inlineEscape(s) {
 		return html(s)
 			.replace(/!\[([^\]]*)]\(([^(]+)\)/g, '<img alt="$1" src="$2">')
 			.replace(/\[([^\]]+)]\(([^(]+)\)/g, '$1'.link('$2'))
-            .replace(/([^"\;])(https?:\/\/([^\s"]+))/g, '$1' + '$3'.link('$2'))
+			.replace(/([^"\;])(https?:\/\/([^\s"]+))/g, '$1' + '$3'.link('$2'))
 			.replace(/^(https?:\/\/([^\s"]+))/g, '$2'.link('$1'))
 			.replace(/`([^`]+)`/g, '<code>$1</code>')
 			.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
 			.replace(/\*([^*]+)\*/g, '<em>$1</em>');
 	}
+
 	src.replace(/\r|\s+$/g, '').replace(/\t/g, '    ').split(/\n\n+/).forEach(function(b, f, R) {
 		f = b.substr(0, 2);
 		R = {
@@ -39,6 +45,10 @@ function mmd(src) {
 			i++;
 		}
 	});
-	if (i == 1) return inlineEscape(src);
+
+	if (i == 1) {
+		return inlineEscape(src);
+	}
+
 	return h;
-};
+}
