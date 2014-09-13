@@ -15,7 +15,7 @@ function mmd(src) {
 		return html(s)
 			.replace(/!\[([^\]]*)]\(([^(]+)\)/g, '<img alt="$1" src="$2">')
 			.replace(/\[([^\]]+)]\(([^(]+)\)/g, '$1'.link('$2'))
-			.replace(/([^"])(https?:\/\/([^\s"]+))/g, '$1$3'.link('$1$2'))
+            .replace(/([^"\;])(https?:\/\/([^\s"]+))/g, '$1' + '$3'.link('$2'))
 			.replace(/^(https?:\/\/([^\s"]+))/g, '$2'.link('$1'))
 			.replace(/`([^`]+)`/g, '<code>$1</code>')
 			.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
