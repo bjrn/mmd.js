@@ -1,6 +1,5 @@
 function mmd(src) {
-	var h = '',
-		i = 0;
+	var h = '';
 
 	function replaceAll(txt, find, replace) {
 		var i, j;
@@ -15,6 +14,15 @@ function mmd(src) {
 	function html(input) {
 		return replaceAll(input.toString(), ['&', '<', '"'], ['&amp;', '&lt;', '&quot;']);
 	}
+
+    //if there's any anchor elements in the text, convert them to markdown first
+    function convertLinks(s){
+    	var pattern = /<a.+?href=[\'\"](.+?)[\'\"].*?>(.*?)<\/a>/gi;
+    	return s.replace(pattern, '[$2]($1)');
+    }
+
+    src = convertLinks(src);
+
 
     function inlineEscape(s) {
         return s.split('`').map(function(val, i, arr) {
@@ -31,19 +39,11 @@ function mmd(src) {
         }).join('');
     }
 
-    //if there's any anchor elements in the text, convert them to markdown first
-    function convertLinks(s){
-    	var pattern = /<a.+?href=[\'\"](.+?)[\'\"].*?>(.*?)<\/a>/gi;
-    	return s.replace(pattern, '[$2]($1)');
-    }
-
-    src = convertLinks(src);
-
     if (!src.match(/\n\n+/) && src.substr(0, 2) != '> ') {
         return inlineEscape(src);
     }
 
-    src.replace(/\r|\s+$/g, '').replace(/\t/g, '	').split(/\n\n+/).forEach(function(b, f, R) {
+    src.replace(/\r|\s+$/g, '').replace(/\t/g, '    ').split(/\n\n+/).forEach(function(b, f, R) {
         var f = b.substr(0, 2),
             R = {
                 '* ': [(/\n\* /), '<ul><li>', '</li></ul>'],
